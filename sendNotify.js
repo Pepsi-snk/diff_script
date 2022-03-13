@@ -125,8 +125,8 @@ if (process.env.QQ_MODE) {
 
 if (process.env.BARK_PUSH) {
   if (
-    process.env.BARK_PUSH.indexOf('https') > -1 ||
-    process.env.BARK_PUSH.indexOf('http') > -1
+      process.env.BARK_PUSH.indexOf('https') > -1 ||
+      process.env.BARK_PUSH.indexOf('http') > -1
   ) {
     //兼容BARK自建用户
     BARK_PUSH = process.env.BARK_PUSH;
@@ -141,9 +141,9 @@ if (process.env.BARK_PUSH) {
   }
 } else {
   if (
-    BARK_PUSH &&
-    BARK_PUSH.indexOf('https') === -1 &&
-    BARK_PUSH.indexOf('http') === -1
+      BARK_PUSH &&
+      BARK_PUSH.indexOf('https') === -1 &&
+      BARK_PUSH.indexOf('http') === -1
   ) {
     //兼容BARK本地用户只填写设备码的情况
     BARK_PUSH = `https://api.day.app/${BARK_PUSH}`;
@@ -196,10 +196,10 @@ if (process.env.PUSH_PLUS_USER) {
  * @returns {Promise<unknown>}
  */
 async function sendNotify(
-  text,
-  desp,
-  params = {},
-  author = '\n\n本通知 By：https://github.com/whyour/qinglong',
+    text,
+    desp,
+    params = {},
+    author = '\n\n本通知 By：https://github.com/whyour/qinglong',
 ) {
   //提供6种通知
   desp += author; //增加作者信息，防止被贩卖等
@@ -281,7 +281,7 @@ function gobotNotify(text, desp, time = 2100) {
                 console.log(`go-cqhttp发送通知消息异常: ${data.errmsg}\n`);
               } else {
                 console.log(
-                  `go-cqhttp发送通知消息异常\n${JSON.stringify(data)}`,
+                    `go-cqhttp发送通知消息异常\n${JSON.stringify(data)}`,
                 );
               }
             }
@@ -305,8 +305,8 @@ function serverNotify(text, desp, time = 2100) {
       desp = desp.replace(/[\n\r]/g, '\n\n');
       const options = {
         url: SCKEY.includes('SCT')
-          ? `https://sctapi.ftqq.com/${SCKEY}.send`
-          : `https://sc.ftqq.com/${SCKEY}.send`,
+            ? `https://sctapi.ftqq.com/${SCKEY}.send`
+            : `https://sc.ftqq.com/${SCKEY}.send`,
         body: `text=${text}&desp=${desp}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -329,7 +329,7 @@ function serverNotify(text, desp, time = 2100) {
                 console.log(`server酱发送通知消息异常: ${data.errmsg}\n`);
               } else {
                 console.log(
-                  `server酱发送通知消息异常\n${JSON.stringify(data)}`,
+                    `server酱发送通知消息异常\n${JSON.stringify(data)}`,
                 );
               }
             }
@@ -401,9 +401,9 @@ function CoolPush(text, desp) {
               console.log(`酷推发送${pushMode(QQ_MODE)}通知消息成功🎉\n`);
             } else if (data.code === 400) {
               console.log(
-                `QQ酷推(Cool Push)发送${pushMode(QQ_MODE)}推送失败：${
-                  data.msg
-                }\n`,
+                  `QQ酷推(Cool Push)发送${pushMode(QQ_MODE)}推送失败：${
+                      data.msg
+                  }\n`,
               );
             } else if (data.code === 503) {
               console.log(`QQ酷推出错，${data.message}：${data.data}\n`);
@@ -428,7 +428,7 @@ function BarkNotify(text, desp, params = {}) {
     if (BARK_PUSH) {
       const options = {
         url: `${BARK_PUSH}/${encodeURIComponent(text)}/${encodeURIComponent(
-          desp,
+            desp,
         )}?sound=${BARK_SOUND}&group=${BARK_GROUP}&${querystring.stringify(params)}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -495,7 +495,7 @@ function tgBotNotify(text, desp) {
               console.log('Telegram发送通知消息成功🎉。\n');
             } else if (data.error_code === 400) {
               console.log(
-                '请主动给bot发送一条消息并检查接收用户ID是否正确。\n',
+                  '请主动给bot发送一条消息并检查接收用户ID是否正确。\n',
               );
             } else if (data.error_code === 401) {
               console.log('Telegram bot token 填写错误。\n');
@@ -725,18 +725,18 @@ function qywxamNotify(text, desp) {
           try {
             if (err) {
               console.log(
-                '成员ID:' +
-                ChangeUserId(desp) +
-                '企业微信应用消息发送通知消息失败！！\n',
+                  '成员ID:' +
+                  ChangeUserId(desp) +
+                  '企业微信应用消息发送通知消息失败！！\n',
               );
               console.log(err);
             } else {
               data = JSON.parse(data);
               if (data.errcode === 0) {
                 console.log(
-                  '成员ID:' +
-                  ChangeUserId(desp) +
-                  '企业微信应用消息发送通知消息成功🎉。\n',
+                    '成员ID:' +
+                    ChangeUserId(desp) +
+                    '企业微信应用消息发送通知消息成功🎉。\n',
                 );
               } else {
                 console.log(`${data.errmsg}\n`);
@@ -820,24 +820,24 @@ function pushPlusNotify(text, desp) {
         try {
           if (err) {
             console.log(
-              `push+发送${
-                PUSH_PLUS_USER ? '一对多' : '一对一'
-              }通知消息失败！！\n`,
+                `push+发送${
+                    PUSH_PLUS_USER ? '一对多' : '一对一'
+                }通知消息失败！！\n`,
             );
             console.log(err);
           } else {
             data = JSON.parse(data);
             if (data.code === 200) {
               console.log(
-                `push+发送${
-                  PUSH_PLUS_USER ? '一对多' : '一对一'
-                }通知消息完成。\n`,
+                  `push+发送${
+                      PUSH_PLUS_USER ? '一对多' : '一对一'
+                  }通知消息完成。\n`,
               );
             } else {
               console.log(
-                `push+发送${
-                  PUSH_PLUS_USER ? '一对多' : '一对一'
-                }通知消息失败：${data.msg}\n`,
+                  `push+发送${
+                      PUSH_PLUS_USER ? '一对多' : '一对一'
+                  }通知消息失败：${data.msg}\n`,
               );
             }
           }
