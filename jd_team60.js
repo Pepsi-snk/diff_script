@@ -8,13 +8,13 @@
  * @param num 跑多少ck
  * @param againUserIndex 需要重新跑的ck
  * @returns {Promise<unknown>}
- * 7 7 7 7 7 jd_team60.js
+ 1 1 1 1 * jd_wdz.js
  */
 
 function openCardActivity(activityId, activityUrl, pin, num, againUserIndex) {
     return new Promise((resolve) => {
         const prefix = activityUrl.includes("cjhydz") ? "cjhydz" : "lzkjdz";
-        const $ = new Env("微定制瓜分京豆");
+        const $ = new Env("微定制瓜分通用");
         const notify = $.isNode() ? require("./sendNotify") : "";
         const jdCookieNode = $.isNode() ? require("./jdCookie.js") : "";
         let cookiesArr = [],
@@ -44,7 +44,7 @@ function openCardActivity(activityId, activityUrl, pin, num, againUserIndex) {
 
         !(async () => {
             if (!activityId) {
-                $.msg($.name, "", "活动id不存在");
+                $.msg($.name, "", "活动id不存在，请设置变量jd_zdjr_activityId");
                 $.done();
                 return;
             }
